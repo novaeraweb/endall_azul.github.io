@@ -1,0 +1,52 @@
+{
+    "name": "endall/sistema-vendas",
+    "description": "Sistema de Catálogo e Orçamentos para Endall Inspeções - Boroscópios Yateks",
+    "type": "project",
+    "keywords": ["catalogo", "orcamento", "boroscopio", "yateks", "endall", "inspecao"],
+    "homepage": "https://endall.com.br/vendas",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Endall Inspeções",
+            "email": "comercial@endall.com.br",
+            "homepage": "https://endall.com.br"
+        }
+    ],
+    "require": {
+        "php": ">=8.0",
+        "ext-pdo": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "phpmailer/phpmailer": "^6.8",
+        "mpdf/mpdf": "^8.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Endall\\": "includes/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "post-install-cmd": [
+            "@php -r \"echo '\\n✅ Dependências instaladas com sucesso!\\n';\"",
+            "@php -r \"echo '📧 PHPMailer instalado - Configure SMTP em includes/config.php\\n';\"",
+            "@php -r \"echo '📄 mPDF instalado - Geração de PDF disponível\\n';\""
+        ],
+        "post-update-cmd": [
+            "@php -r \"echo '\\n✅ Dependências atualizadas!\\n';\""
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

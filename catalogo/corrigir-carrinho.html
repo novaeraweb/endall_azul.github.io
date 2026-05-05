@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corrigir Carrinho - Endall Inspeções</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --cor-primaria: #0D1B2A;
+            --cor-secundaria: #F5A623;
+            --cor-sucesso: #28a745;
+            --cor-erro: #dc3545;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--cor-primaria) 0%, #1a2f4a 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 3rem;
+            text-align: center;
+        }
+        
+        h1 {
+            color: var(--cor-primaria);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+        
+        h1 i {
+            color: var(--cor-secundaria);
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 1.125rem;
+        }
+        
+        .problema {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+        
+        .problema h3 {
+            color: #856404;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .problema p {
+            color: #856404;
+            margin: 0;
+        }
+        
+        .solucao {
+            background: #d4edda;
+            border-left: 4px solid var(--cor-sucesso);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+        
+        .solucao h3 {
+            color: #155724;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .solucao ul {
+            color: #155724;
+            margin-left: 1.5rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--cor-secundaria);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.125rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 0.5rem;
+        }
+        
+        .btn:hover {
+            background: #e09416;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(245, 166, 35, 0.3);
+        }
+        
+        .btn-secondary {
+            background: var(--cor-primaria);
+        }
+        
+        .btn-secondary:hover {
+            background: #1a2f4a;
+        }
+        
+        .resultado {
+            background: var(--cor-sucesso);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            display: none;
+        }
+        
+        .resultado h3 {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            <i class="fas fa-tools"></i>
+            Correção do Carrinho
+        </h1>
+        <p class="subtitle">Resolver problema "undefined" no orçamento</p>
+        
+        <div class="problema">
+            <h3><i class="fas fa-exclamation-triangle"></i> Problema Identificado</h3>
+            <p>Os dados do carrinho estão com formato incorreto, causando "undefined" na página de orçamento.</p>
+        </div>
+        
+        <div class="solucao">
+            <h3><i class="fas fa-check-circle"></i> Solução</h3>
+            <ul>
+                <li>Limpar dados corrompidos do localStorage</li>
+                <li>Adicionar produto com formato correto</li>
+                <li>Testar fluxo completo</li>
+            </ul>
+        </div>
+        
+        <button class="btn" id="btnCorrigir" onclick="corrigirCarrinho()">
+            <i class="fas fa-wrench"></i> Corrigir Agora
+        </button>
+        
+        <div class="resultado" id="resultado">
+            <h3><i class="fas fa-check-circle"></i> Carrinho Corrigido!</h3>
+            <p>✅ localStorage limpo</p>
+            <p>✅ Produto de teste adicionado corretamente</p>
+            <p>✅ Pronto para ir ao orçamento</p>
+        </div>
+        
+        <div class="actions" id="actions" style="display: none;">
+            <a href="orcamento.php" class="btn">
+                <i class="fas fa-file-invoice"></i> Ir para Orçamento
+            </a>
+            <a href="index.php" class="btn btn-secondary">
+                <i class="fas fa-home"></i> Voltar ao Catálogo
+            </a>
+            <button class="btn btn-secondary" onclick="location.reload()">
+                <i class="fas fa-sync"></i> Reiniciar Correção
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        function corrigirCarrinho() {
+            console.log('=== INICIANDO CORREÇÃO DO CARRINHO ===');
+            
+            // 1. Limpar localStorage
+            localStorage.removeItem('endall_carrinho');
+            console.log('✅ localStorage limpo');
+            
+            // 2. Criar produto de teste CORRETO
+            const produtoCorreto = {
+                id: 1,
+                sku: 'MV3-5',
+                nome: 'Realta MV3 - Câmera 3.9mm Flexível',
+                serie_nome: 'Realta MV',
+                serie_cor: '#E63946',
+                imagem: 'assets/images/produto-sem-foto.svg',
+                diametro_camera: 3.9,          // NÚMERO, não string
+                comprimento_cabo: 5.0,          // NÚMERO, não string
+                quantidade: 1,
+                observacoes: '',
+                adicionado_em: new Date().toISOString()
+            };
+            
+            console.log('Produto correto criado:', produtoCorreto);
+            
+            // 3. Salvar no formato correto
+            const carrinho = [produtoCorreto];
+            localStorage.setItem('endall_carrinho', JSON.stringify(carrinho));
+            console.log('✅ Produto salvo corretamente');
+            
+            // 4. Verificar se salvou
+            const teste = localStorage.getItem('endall_carrinho');
+            console.log('Dados salvos:', teste);
+            
+            try {
+                const parse = JSON.parse(teste);
+                console.log('✅ JSON válido:', parse);
+                
+                // Verificar tipos
+                console.log('Tipo de diametro_camera:', typeof parse[0].diametro_camera);
+                console.log('Tipo de comprimento_cabo:', typeof parse[0].comprimento_cabo);
+                
+                if (typeof parse[0].diametro_camera === 'number' && 
+                    typeof parse[0].comprimento_cabo === 'number') {
+                    console.log('✅ CORREÇÃO BEM-SUCEDIDA!');
+                    
+                    // Mostrar resultado
+                    document.getElementById('resultado').style.display = 'block';
+                    document.getElementById('actions').style.display = 'flex';
+                    document.getElementById('btnCorrigir').disabled = true;
+                    document.getElementById('btnCorrigir').textContent = '✅ Corrigido!';
+                    document.getElementById('btnCorrigir').style.opacity = '0.6';
+                } else {
+                    console.error('❌ Tipos ainda estão errados!');
+                    alert('ERRO: Tipos de dados ainda incorretos. Verifique o console (F12).');
+                }
+            } catch (e) {
+                console.error('❌ ERRO ao fazer parse:', e);
+                alert('ERRO: JSON inválido. Verifique o console (F12).');
+            }
+            
+            console.log('=== FIM DA CORREÇÃO ===');
+        }
+        
+        // Verificar estado atual ao carregar
+        window.addEventListener('DOMContentLoaded', function() {
+            const data = localStorage.getItem('endall_carrinho');
+            if (data) {
+                try {
+                    const carrinho = JSON.parse(data);
+                    console.log('Carrinho atual:', carrinho);
+                    
+                    if (carrinho.length > 0) {
+                        console.log('Primeiro item:', carrinho[0]);
+                        console.log('Tipo de diametro_camera:', typeof carrinho[0].diametro_camera);
+                        console.log('Tipo de comprimento_cabo:', typeof carrinho[0].comprimento_cabo);
+                    }
+                } catch (e) {
+                    console.error('localStorage corrompido:', e);
+                }
+            } else {
+                console.log('localStorage vazio');
+            }
+        });
+    </script>
+</body>
+</html>

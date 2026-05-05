@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo Orçamento - Endall Inspeções</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f6f9;
+        }
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: #ffffff;
+        }
+        .header {
+            background: linear-gradient(135deg, #2F81DF 0%, #1565C0 100%);
+            color: #ffffff;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 16px;
+            opacity: 0.95;
+        }
+        .alert {
+            background-color: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px 20px;
+            margin: 20px 30px;
+            border-radius: 4px;
+        }
+        .alert p {
+            margin: 0;
+            color: #92400e;
+            font-weight: 600;
+        }
+        .content {
+            padding: 30px;
+        }
+        .content h2 {
+            color: #0D1B2A;
+            font-size: 20px;
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #2F81DF;
+            padding-bottom: 10px;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .info-item {
+            background-color: #f9fafb;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+        .info-item label {
+            display: block;
+            font-size: 12px;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .info-item strong {
+            display: block;
+            color: #0D1B2A;
+            font-size: 16px;
+        }
+        .products-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .products-table th {
+            background-color: #0D1B2A;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-size: 14px;
+        }
+        .products-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 14px;
+        }
+        .products-table tr:hover {
+            background-color: #f9fafb;
+        }
+        .product-sku {
+            font-weight: 600;
+            color: #2F81DF;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin: 25px 0;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #2F81DF;
+            color: #ffffff !important;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            text-align: center;
+            flex: 1;
+        }
+        .button-secondary {
+            background-color: #0D1B2A;
+        }
+        .message-box {
+            background-color: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .message-box h3 {
+            margin: 0 0 10px 0;
+            color: #1e40af;
+            font-size: 16px;
+        }
+        .message-box p {
+            margin: 0;
+            color: #1e3a8a;
+            font-style: italic;
+        }
+        .footer {
+            background-color: #f4f6f9;
+            padding: 20px 30px;
+            text-align: center;
+            font-size: 12px;
+            color: #6b7280;
+        }
+        .metadata {
+            background-color: #f9fafb;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🎯 Novo Orçamento Recebido!</h1>
+            <p>Um cliente solicitou um orçamento pelo sistema</p>
+        </div>
+        
+        <!-- Alert -->
+        <div class="alert">
+            <p>⚠️ Ação necessária: Entre em contato com o cliente em até 24 horas</p>
+        </div>
+        
+        <!-- Content -->
+        <div class="content">
+            <!-- Informações do Orçamento -->
+            <h2>📋 Informações do Orçamento</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <label>Número</label>
+                    <strong>{{NUMERO_ORCAMENTO}}</strong>
+                </div>
+                <div class="info-item">
+                    <label>Data/Hora</label>
+                    <strong>{{DATA_ORCAMENTO}}</strong>
+                </div>
+                <div class="info-item">
+                    <label>Total de Produtos</label>
+                    <strong>{{TOTAL_PRODUTOS}} item(s)</strong>
+                </div>
+                <div class="info-item">
+                    <label>Total de Unidades</label>
+                    <strong>{{TOTAL_UNIDADES}}</strong>
+                </div>
+            </div>
+            
+            <!-- Informações do Cliente -->
+            <h2>👤 Dados do Cliente</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <label>Nome Completo</label>
+                    <strong>{{CLIENTE_NOME}}</strong>
+                </div>
+                <div class="info-item">
+                    <label>E-mail</label>
+                    <strong>{{CLIENTE_EMAIL}}</strong>
+                </div>
+                <div class="info-item">
+                    <label>Telefone/WhatsApp</label>
+                    <strong>{{CLIENTE_TELEFONE}}</strong>
+                </div>
+                <div class="info-item">
+                    <label>Empresa</label>
+                    <strong>{{CLIENTE_EMPRESA}}</strong>
+                </div>
+            </div>
+            
+            {{CLIENTE_CARGO_HTML}}
+            
+            <!-- Mensagem do Cliente -->
+            {{MENSAGEM_HTML}}
+            
+            <!-- Produtos Solicitados -->
+            <h2>📦 Produtos Solicitados</h2>
+            <table class="products-table">
+                <thead>
+                    <tr>
+                        <th>SKU</th>
+                        <th>Produto</th>
+                        <th>Série</th>
+                        <th>Specs</th>
+                        <th>Qtd</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{TABELA_PRODUTOS}}
+                </tbody>
+            </table>
+            
+            <!-- Ações -->
+            <div class="button-group">
+                <a href="mailto:{{CLIENTE_EMAIL}}" class="button">
+                    📧 Responder por E-mail
+                </a>
+                <a href="https://wa.me/{{CLIENTE_WHATSAPP}}" class="button button-secondary">
+                    💬 WhatsApp
+                </a>
+            </div>
+            
+            <!-- Metadados -->
+            <div class="metadata">
+                <strong>Metadados da Solicitação:</strong><br>
+                <strong>IP:</strong> {{IP_CLIENTE}}<br>
+                <strong>Navegador:</strong> {{USER_AGENT}}<br>
+                <strong>Origem:</strong> {{ORIGEM}}
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>Sistema de Vendas - Endall Inspeções</p>
+            <p>Este e-mail foi gerado automaticamente pelo sistema</p>
+        </div>
+    </div>
+</body>
+</html>

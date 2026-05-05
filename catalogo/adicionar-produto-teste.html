@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Produto de Teste - Endall</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0D1B2A 0%, #1B2D3E 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+        }
+        
+        h1 {
+            color: #0D1B2A;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .subtitle {
+            color: #F5A623;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .produto-card {
+            background: #F4F6F9;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .produto-card h3 {
+            color: #0D1B2A;
+            margin-bottom: 10px;
+        }
+        
+        .produto-card p {
+            color: #374151;
+            margin-bottom: 5px;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #F5A623 0%, #FF8C00 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(245, 166, 35, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #0D1B2A;
+        }
+        
+        .btn-secondary:hover {
+            box-shadow: 0 10px 30px rgba(13, 27, 42, 0.4);
+        }
+        
+        .resultado {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .resultado.sucesso {
+            background: #D1FAE5;
+            border: 2px solid #10B981;
+            color: #065F46;
+        }
+        
+        .info {
+            background: #FFF9E6;
+            border-left: 4px solid #F5A623;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        
+        .info p {
+            color: #374151;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛒 Adicionar Produto de Teste</h1>
+        <p class="subtitle">Para testar o sistema de orçamento</p>
+        
+        <div class="info">
+            <p><strong>📌 Instruções:</strong></p>
+            <p>1. Clique em "Adicionar Produto ao Carrinho"</p>
+            <p>2. Depois clique em "Ir para Orçamento"</p>
+            <p>3. Preencha e envie o formulário</p>
+        </div>
+        
+        <div class="produto-card">
+            <h3>Realta MV3 - Câmera 3.9mm Flexível</h3>
+            <p><strong>SKU:</strong> MV3-5</p>
+            <p><strong>Série:</strong> MV6</p>
+            <p><strong>Diâmetro:</strong> 3.9mm</p>
+            <p><strong>Cabo:</strong> 5.0m</p>
+        </div>
+        
+        <button class="btn" id="btnAdicionar">
+            🛒 Adicionar Produto ao Carrinho
+        </button>
+        
+        <button class="btn btn-secondary" id="btnIrOrcamento" style="display: none;">
+            📋 Ir para Orçamento
+        </button>
+        
+        <button class="btn btn-secondary" id="btnLimpar" style="display: none;">
+            🗑️ Limpar Carrinho
+        </button>
+        
+        <div class="resultado sucesso" id="resultado"></div>
+    </div>
+    
+    <script>
+        // Produto de teste
+        const produtoTeste = {
+            id: 1,
+            sku: 'MV3-5',
+            nome: 'Realta MV3 - Câmera 3.9mm Flexível',
+            serie_nome: 'Realta MV',
+            serie_cor: '#E63946',
+            imagem: 'assets/images/produto-sem-foto.svg',
+            diametro_camera: 3.9,
+            comprimento_cabo: 5.0,
+            quantidade: 1,
+            observacoes: ''
+        };
+        
+        // Adicionar ao carrinho
+        document.getElementById('btnAdicionar').addEventListener('click', function() {
+            // Obter carrinho atual
+            let carrinho = [];
+            try {
+                const data = localStorage.getItem('endall_carrinho');
+                carrinho = data ? JSON.parse(data) : [];
+            } catch (e) {
+                carrinho = [];
+            }
+            
+            // Verificar se produto já existe
+            const existe = carrinho.find(item => item.id === produtoTeste.id);
+            
+            if (existe) {
+                existe.quantidade++;
+            } else {
+                carrinho.push({ ...produtoTeste });
+            }
+            
+            // Salvar
+            localStorage.setItem('endall_carrinho', JSON.stringify(carrinho));
+            
+            // Mostrar resultado
+            document.getElementById('resultado').style.display = 'block';
+            document.getElementById('resultado').innerHTML = `
+                <h3>✅ Produto Adicionado!</h3>
+                <p>Total de produtos no carrinho: <strong>${carrinho.length}</strong></p>
+                <p>Agora você pode ir para a página de orçamento.</p>
+            `;
+            
+            // Mostrar botões
+            document.getElementById('btnIrOrcamento').style.display = 'block';
+            document.getElementById('btnLimpar').style.display = 'block';
+        });
+        
+        // Ir para orçamento
+        document.getElementById('btnIrOrcamento').addEventListener('click', function() {
+            window.location.href = 'orcamento.php';
+        });
+        
+        // Limpar carrinho
+        document.getElementById('btnLimpar').addEventListener('click', function() {
+            if (confirm('Deseja limpar o carrinho?')) {
+                localStorage.removeItem('endall_carrinho');
+                document.getElementById('resultado').innerHTML = `
+                    <h3>🗑️ Carrinho Limpo!</h3>
+                    <p>Todos os produtos foram removidos.</p>
+                `;
+                document.getElementById('btnIrOrcamento').style.display = 'none';
+                document.getElementById('btnLimpar').style.display = 'none';
+            }
+        });
+        
+        // Verificar se já tem produtos no carrinho
+        window.addEventListener('DOMContentLoaded', function() {
+            try {
+                const data = localStorage.getItem('endall_carrinho');
+                const carrinho = data ? JSON.parse(data) : [];
+                
+                if (carrinho.length > 0) {
+                    document.getElementById('resultado').style.display = 'block';
+                    document.getElementById('resultado').innerHTML = `
+                        <h3>ℹ️ Carrinho já possui produtos</h3>
+                        <p>Total: <strong>${carrinho.length}</strong> produto(s)</p>
+                        <p>Você pode adicionar mais ou ir direto para o orçamento.</p>
+                    `;
+                    document.getElementById('btnIrOrcamento').style.display = 'block';
+                    document.getElementById('btnLimpar').style.display = 'block';
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        });
+    </script>
+</body>
+</html>

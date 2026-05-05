@@ -1,0 +1,4 @@
+videos/ge-xl-lv.mov filter=lfs diff=lfs merge=lfs -text
+videos/ge-xl-lv.mp4 filter=lfs diff=lfs merge=lfs -text
+videos/video-inspecao-redes-efluentes2.mp4 filter=lfs diff=lfs merge=lfs -text
+videos/video-inspecao-redes-efluentes.mp4 filter=lfs diff=lfs merge=lfs -text

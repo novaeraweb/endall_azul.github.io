@@ -1,0 +1,146 @@
+# ======================================
+# ENDALL INSPEÇÕES - .gitignore
+# ======================================
+
+# ==================================================
+# PHP
+# ==================================================
+vendor/
+composer.phar
+composer.lock
+
+# ==================================================
+# CONFIGURAÇÕES LOCAIS
+# ==================================================
+includes/config.php.local
+.env
+.env.local
+.env.production
+
+# ==================================================
+# UPLOADS E ARQUIVOS GERADOS
+# ==================================================
+uploads/produtos/*
+uploads/pdfs/*
+uploads/temp/*
+!uploads/produtos/.gitkeep
+!uploads/pdfs/.gitkeep
+!uploads/temp/.gitkeep
+
+# ==================================================
+# LOGS
+# ==================================================
+logs/
+*.log
+error_log
+debug.log
+
+# ==================================================
+# CACHE
+# ==================================================
+cache/
+tmp/
+temp/
+*.cache
+
+# ==================================================
+# BANCO DE DADOS
+# ==================================================
+*.sql.backup
+*.sql.gz
+backup/
+
+# ==================================================
+# IDE E EDITORES
+# ==================================================
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# PhpStorm / IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# NetBeans
+nbproject/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# Atom
+.atom/
+
+# ==================================================
+# SISTEMA OPERACIONAL
+# ==================================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# ==================================================
+# NODE.JS (se usar NPM/Yarn no futuro)
+# ==================================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# ==================================================
+# FERRAMENTAS DE BUILD
+# ==================================================
+dist/
+build/
+.sass-cache/
+*.map
+
+# ==================================================
+# TESTES
+# ==================================================
+coverage/
+.phpunit.result.cache
+phpunit.xml
+
+# ==================================================
+# DOCUMENTAÇÃO GERADA
+# ==================================================
+docs/_build/
+*.pdf.draft
+
+# ==================================================
+# OUTROS
+# ==================================================
+*.swp
+*.swo
+*.bak
+*.old
+*.orig
+*.rej
+*~

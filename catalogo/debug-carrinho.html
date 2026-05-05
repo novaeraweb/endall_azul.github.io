@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug - Teste do Carrinho</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0D1B2A;
+            color: white;
+            padding: 40px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            color: #0D1B2A;
+            padding: 30px;
+            border-radius: 12px;
+        }
+        button {
+            background: #F5A623;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #FF8C00;
+        }
+        .info {
+            background: #F4F6F9;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #F5A623;
+        }
+        .resultado {
+            background: #D1FAE5;
+            border: 2px solid #10B981;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+        .erro {
+            background: #FEE2E2;
+            border: 2px solid #EF4444;
+            color: #991B1B;
+        }
+        code {
+            background: #374151;
+            color: #10B981;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+        pre {
+            background: #1F2937;
+            color: #10B981;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Debug - Sistema de Carrinho</h1>
+        <p>Use esta página para testar se o carrinho está funcionando corretamente.</p>
+        
+        <div class="info">
+            <h3>📋 Instruções:</h3>
+            <ol>
+                <li>Clique em cada botão abaixo</li>
+                <li>Veja os resultados no console (F12)</li>
+                <li>Copie os resultados e me envie</li>
+            </ol>
+        </div>
+        
+        <button onclick="testeCarrinho()">1️⃣ Testar Objeto Carrinho</button>
+        <button onclick="testeLocalStorage()">2️⃣ Testar localStorage</button>
+        <button onclick="testePrepararEnvio()">3️⃣ Testar prepararParaEnvio()</button>
+        <button onclick="testeCompleto()">4️⃣ Teste Completo</button>
+        <button onclick="limparTudo()">🗑️ Limpar Tudo</button>
+        
+        <div id="resultado" class="resultado"></div>
+    </div>
+    
+    <!-- IMPORTANTE: Carregar carrinho.js -->
+    <script src="assets/js/carrinho.js"></script>
+    
+    <script>
+        function log(mensagem, tipo = 'info') {
+            console.log(`[${tipo.toUpperCase()}] ${mensagem}`);
+            const resultado = document.getElementById('resultado');
+            resultado.style.display = 'block';
+            resultado.className = tipo === 'erro' ? 'resultado erro' : 'resultado';
+            resultado.innerHTML += `<p><strong>[${tipo.toUpperCase()}]</strong> ${mensagem}</p>`;
+        }
+        
+        function testeCarrinho() {
+            document.getElementById('resultado').innerHTML = '';
+            log('=== TESTE 1: Objeto Carrinho ===');
+            
+            if (typeof Carrinho === 'undefined') {
+                log('❌ ERRO: Objeto Carrinho não está definido!', 'erro');
+                log('Verifique se o arquivo carrinho.js está carregando.', 'erro');
+                return;
+            }
+            
+            log('✅ Objeto Carrinho existe!');
+            log('Métodos disponíveis: ' + Object.keys(Carrinho).join(', '));
+            
+            const total = Carrinho.contar();
+            log(`Total de itens no carrinho: ${total}`);
+            
+            if (total === 0) {
+                log('⚠️ Carrinho está vazio! Adicione produtos primeiro.', 'erro');
+            } else {
+                log(`✅ Carrinho contém ${total} item(ns)`);
+            }
+        }
+        
+        function testeLocalStorage() {
+            document.getElementById('resultado').innerHTML = '';
+            log('=== TESTE 2: localStorage ===');
+            
+            const data = localStorage.getItem('endall_carrinho');
+            
+            if (!data) {
+                log('❌ ERRO: Chave "endall_carrinho" não encontrada no localStorage!', 'erro');
+                return;
+            }
+            
+            log('✅ Dados encontrados no localStorage');
+            log('Dados brutos:');
+            console.log(data);
+            
+            try {
+                const carrinho = JSON.parse(data);
+                log(`✅ JSON válido! Total de itens: ${carrinho.length}`);
+                log('Dados parseados:');
+                console.log(carrinho);
+                
+                document.getElementById('resultado').innerHTML += `<pre>${JSON.stringify(carrinho, null, 2)}</pre>`;
+            } catch (e) {
+                log('❌ ERRO: JSON inválido no localStorage!', 'erro');
+                log('Erro: ' + e.message, 'erro');
+            }
+        }
+        
+        function testePrepararEnvio() {
+            document.getElementById('resultado').innerHTML = '';
+            log('=== TESTE 3: prepararParaEnvio() ===');
+            
+            if (typeof Carrinho === 'undefined') {
+                log('❌ ERRO: Objeto Carrinho não definido!', 'erro');
+                return;
+            }
+            
+            if (typeof Carrinho.prepararParaEnvio !== 'function') {
+                log('❌ ERRO: Função prepararParaEnvio() não existe!', 'erro');
+                return;
+            }
+            
+            log('✅ Função prepararParaEnvio() existe');
+            
+            try {
+                const itens = Carrinho.prepararParaEnvio();
+                log(`✅ Função executada! Retornou ${itens.length} item(ns)`);
+                log('Dados retornados:');
+                console.log(itens);
+                
+                const json = JSON.stringify(itens);
+                log('JSON gerado:');
+                log(json);
+                
+                document.getElementById('resultado').innerHTML += `<pre>${JSON.stringify(itens, null, 2)}</pre>`;
+            } catch (e) {
+                log('❌ ERRO ao executar prepararParaEnvio()!', 'erro');
+                log('Erro: ' + e.message, 'erro');
+            }
+        }
+        
+        function testeCompleto() {
+            document.getElementById('resultado').innerHTML = '';
+            log('=== TESTE 4: Teste Completo ===');
+            
+            // 1. Verificar Carrinho
+            if (typeof Carrinho === 'undefined') {
+                log('❌ Objeto Carrinho não definido', 'erro');
+                return;
+            }
+            log('✅ 1/5 - Objeto Carrinho existe');
+            
+            // 2. Verificar localStorage
+            const data = localStorage.getItem('endall_carrinho');
+            if (!data) {
+                log('❌ localStorage vazio', 'erro');
+                return;
+            }
+            log('✅ 2/5 - localStorage tem dados');
+            
+            // 3. Verificar JSON
+            try {
+                const carrinho = JSON.parse(data);
+                log(`✅ 3/5 - JSON válido (${carrinho.length} itens)`);
+            } catch (e) {
+                log('❌ JSON inválido', 'erro');
+                return;
+            }
+            
+            // 4. Verificar prepararParaEnvio
+            if (typeof Carrinho.prepararParaEnvio !== 'function') {
+                log('❌ Função prepararParaEnvio() não existe', 'erro');
+                return;
+            }
+            log('✅ 4/5 - Função prepararParaEnvio() existe');
+            
+            // 5. Executar prepararParaEnvio
+            try {
+                const itens = Carrinho.prepararParaEnvio();
+                const json = JSON.stringify(itens);
+                log('✅ 5/5 - prepararParaEnvio() executado com sucesso!');
+                log('');
+                log('🎉 TODOS OS TESTES PASSARAM!');
+                log('');
+                log('📋 JSON pronto para envio:');
+                console.log(json);
+                
+                document.getElementById('resultado').innerHTML += `<h3 style="color: #10B981;">✅ Sistema Funcionando!</h3>`;
+                document.getElementById('resultado').innerHTML += `<p>O JSON abaixo deve ser enviado no formulário:</p>`;
+                document.getElementById('resultado').innerHTML += `<pre>${JSON.stringify(itens, null, 2)}</pre>`;
+                document.getElementById('resultado').innerHTML += `<button onclick="copiarJSON()">📋 Copiar JSON</button>`;
+                
+                window.jsonParaCopiar = json;
+            } catch (e) {
+                log('❌ Erro ao executar prepararParaEnvio()', 'erro');
+                log('Erro: ' + e.message, 'erro');
+            }
+        }
+        
+        function copiarJSON() {
+            if (window.jsonParaCopiar) {
+                navigator.clipboard.writeText(window.jsonParaCopiar);
+                alert('JSON copiado para área de transferência!');
+            }
+        }
+        
+        function limparTudo() {
+            if (confirm('Deseja limpar o carrinho e localStorage?')) {
+                localStorage.removeItem('endall_carrinho');
+                document.getElementById('resultado').innerHTML = '';
+                log('🗑️ Carrinho limpo!');
+                log('Recarregue a página e adicione produtos novamente.');
+            }
+        }
+    </script>
+</body>
+</html>
