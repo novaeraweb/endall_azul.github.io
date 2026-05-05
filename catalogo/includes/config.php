@@ -30,7 +30,7 @@ if ($isLocal) {
     define('DB_PASS', 'root');
 } else {
     define('DB_HOST', getenv('ENDALL_DB_HOST') ?: 'mysql669.umbler.com');
-    define('DB_NAME', getenv('ENDALL_DB_NAME') ?: 'endall_azul');
+    define('DB_NAME', getenv('ENDALL_DB_NAME') ?: 'endall_vendas');
     define('DB_USER', getenv('ENDALL_DB_USER') ?: 'endall_azul');
     define('DB_PASS', getenv('ENDALL_DB_PASS') ?: 'eis*010203');
 }
