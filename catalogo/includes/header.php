@@ -88,13 +88,6 @@ $page_title_base = isset($page_title) ? $page_title . ' | ' : '';
                     </ul>
                 </li>
                 <li>
-                    <a href="../locacao-equipamentos-boroscopia-endoscopia.php">Equipamentos</a>
-                    <ul>
-                        <li><a href="../locacao-equipamentos-boroscopia-endoscopia.php">Locação</a></li>
-                        <li><a href="index.php">Venda</a></li>
-                    </ul>
-                </li>
-                <li>
                     <a href="orcamento.php" class="btn-carrinho-header" id="carrinhoBadge">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="label-orcamento">Orçamento</span>

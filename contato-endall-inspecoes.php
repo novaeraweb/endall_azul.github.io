@@ -77,7 +77,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 					</div>
 				</article>
 			</div>
-        <div style="width:100%;background: #b91715;background: -webkit-linear-gradient(to bottom, #9c1312, #b91715);background: linear-gradient(to bottom, #9c1312, #b91715);" >
+		<div style="width:100%;background:#1565c0;">
             <div class="page__section">
                 <div class="inner">
                     <nav class="breadcrumb breadcrumb_type2" aria-label="Breadcrumb">
