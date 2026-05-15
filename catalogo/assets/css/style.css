@@ -3310,7 +3310,7 @@ ul.contact-icons .ul-footer li {
 }
 
 .produto-tabs .tab-btn.active {
-  background: var(--cor-primaria, #1565c0) !important; /* AZUL */
+  background: #1565c0 !important; /* AZUL */
   color: #fff !important; /* BRANCO */
   border-bottom: 0 !important;
   position: relative;

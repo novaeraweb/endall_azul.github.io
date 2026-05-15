@@ -165,7 +165,7 @@ include __DIR__ . '/includes/header.php';
             <div class="produto-info">
                 
                 <!-- Badge da Série -->
-                <div class="produto-serie-badge" style="background-color: <?= htmlEsc($produto['serie_cor']) ?>;">
+                <div class="produto-serie-badge" style="background-color:#1565c0;">
                     <?= htmlEsc($produto['serie_nome']) ?>
                 </div>
                 
