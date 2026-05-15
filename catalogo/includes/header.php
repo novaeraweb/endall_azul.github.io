@@ -64,7 +64,7 @@ $page_title_base = isset($page_title) ? $page_title . ' | ' : '';
 
     <div class="inner">
         <a class="logo" href="../index.php">
-            <img src="../images/logo.png" alt="Logo Endall Inspeções e Serviços" width="200" height="66">
+            <img src="../images/logo-yateks-brasil.png" alt="Logo Endall Inspeções e Serviços" width="200" height="66">
         </a>
 
         <nav id="nav">
